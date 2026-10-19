@@ -34,28 +34,112 @@ st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-    html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    h1, h2, h3, h4, .cinematic-title {
-        font-family: 'Outfit', sans-serif;
-        letter-spacing: -0.02em;
+    /* Global Dark Background & Contrast */
+    html, body, [class*="css"], [data-testid="stAppViewContainer"], .main, .stApp {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        color: #f8fafc !important;
+        background-color: #070a12 !important;
     }
 
     /* Ambient Background Glow */
     .stApp {
-        background: radial-gradient(circle at 10% 20%, rgba(30, 27, 75, 0.4) 0%, rgba(15, 23, 42, 1) 90%);
+        background: radial-gradient(circle at 10% 15%, rgba(30, 27, 75, 0.45) 0%, rgba(7, 10, 18, 1) 85%) !important;
+    }
+
+    /* Top Header */
+    header[data-testid="stHeader"] {
+        background-color: #070a12 !important;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.4) !important;
+    }
+    .stDeployButton, [data-testid="stDeployButton"], div[data-baseweb="popover"], div[data-testid="stNotification"] {
+        display: none !important;
+    }
+
+    h1, h2, h3, h4, .cinematic-title {
+        font-family: 'Outfit', sans-serif !important;
+        letter-spacing: -0.02em;
+        color: #ffffff !important;
+    }
+
+    /* Sidebar Theme */
+    [data-testid="stSidebar"], [data-testid="stSidebarContent"], section[data-testid="stSidebar"] > div {
+        background-color: #0c111d !important;
+        border-right: 1px solid rgba(51, 65, 85, 0.5) !important;
+    }
+    [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
+        color: #f1f5f9 !important;
+    }
+
+    /* Tab Styling - High Contrast & Glowing */
+    button[data-baseweb="tab"] {
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+        color: #cbd5e1 !important;
+        padding: 10px 20px !important;
+        background: rgba(30, 41, 59, 0.4) !important;
+        border: 1px solid rgba(71, 85, 105, 0.3) !important;
+        border-radius: 8px !important;
+        margin-right: 8px !important;
+        transition: all 0.2s ease !important;
+    }
+    button[data-baseweb="tab"]:hover {
+        color: #38bdf8 !important;
+        background: rgba(56, 189, 248, 0.15) !important;
+        border-color: rgba(56, 189, 248, 0.4) !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #ffffff !important;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(56, 189, 248, 0.35) 100%) !important;
+        border-bottom: 3px solid #a855f7 !important;
+        box-shadow: 0 4px 15px -3px rgba(168, 85, 247, 0.4) !important;
+    }
+
+    /* Chat Messages Container */
+    [data-testid="stChatMessage"] {
+        background-color: #111827 !important;
+        border: 1px solid rgba(71, 85, 105, 0.5) !important;
+        border-radius: 14px !important;
+        padding: 1.2rem !important;
+        margin-bottom: 1rem !important;
+        box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.5) !important;
+    }
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p,
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] li,
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] span {
+        color: #f1f5f9 !important;
+        font-size: 1.02rem !important;
+        line-height: 1.6 !important;
+    }
+    [data-testid="stChatMessage"] strong, [data-testid="stChatMessage"] b {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    /* Quick Query Action Buttons */
+    div[data-testid="stButton"] button {
+        background: #151d30 !important;
+        color: #e2e8f0 !important;
+        border: 1px solid rgba(100, 116, 139, 0.5) !important;
+        border-radius: 8px !important;
+        font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+    }
+    div[data-testid="stButton"] button:hover {
+        background: #1e293b !important;
+        border-color: #38bdf8 !important;
+        color: #ffffff !important;
+        transform: translateY(-1px) !important;
     }
 
     /* Hero Banner */
     .hero-container {
         padding: 1.8rem 2.2rem;
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+        background: linear-gradient(135deg, rgba(22, 29, 47, 0.9) 0%, rgba(13, 19, 33, 0.95) 100%);
         border-radius: 18px;
-        border: 1px solid rgba(148, 163, 184, 0.12);
-        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(12px);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(16px);
         margin-bottom: 1.8rem;
     }
 
@@ -63,22 +147,22 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-        border: 1px solid rgba(168, 85, 247, 0.4);
+        background: linear-gradient(90deg, rgba(99, 102, 241, 0.3) 0%, rgba(168, 85, 247, 0.3) 100%);
+        border: 1px solid rgba(168, 85, 247, 0.5);
         padding: 4px 12px;
         border-radius: 9999px;
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         font-weight: 700;
-        color: #c084fc;
+        color: #d8b4fe;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         margin-bottom: 0.6rem;
     }
 
     .hero-heading {
-        font-size: 2.5rem;
+        font-size: 2.6rem;
         font-weight: 800;
-        background: linear-gradient(90deg, #ffffff 0%, #cbd5e1 40%, #a855f7 80%, #38bdf8 100%);
+        background: linear-gradient(90deg, #ffffff 0%, #e2e8f0 35%, #c084fc 75%, #38bdf8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         line-height: 1.15;
@@ -87,39 +171,39 @@ st.markdown("""
 
     .hero-description {
         font-size: 1.05rem;
-        color: #94a3b8;
+        color: #cbd5e1;
         max-width: 850px;
-        line-height: 1.5;
+        line-height: 1.55;
         margin: 0;
     }
 
     /* Metric Cards */
     .metric-card {
-        background: rgba(30, 41, 59, 0.5);
-        border: 1px solid rgba(71, 85, 105, 0.3);
+        background: #111827;
+        border: 1px solid rgba(71, 85, 105, 0.55);
         border-radius: 14px;
         padding: 1.1rem 1.4rem;
-        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
         transition: transform 0.2s ease, border-color 0.2s ease;
     }
     .metric-card:hover {
         transform: translateY(-2px);
-        border-color: rgba(168, 85, 247, 0.5);
+        border-color: rgba(168, 85, 247, 0.6);
     }
     .metric-val {
         font-size: 2rem;
         font-weight: 800;
         font-family: 'Outfit', sans-serif;
-        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
     .metric-lbl {
         font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         color: #94a3b8;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     /* Execution Trace Pill */
@@ -127,31 +211,54 @@ st.markdown("""
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(51, 65, 85, 0.6);
+        background: #0f172a;
+        border: 1px solid rgba(71, 85, 105, 0.6);
         border-radius: 10px;
         padding: 8px 12px;
         margin-top: 10px;
         align-items: center;
-        font-size: 0.82rem;
-        color: #94a3b8;
+        font-size: 0.84rem;
+        color: #e2e8f0;
     }
     .trace-tag {
         display: inline-flex;
         align-items: center;
         gap: 5px;
-        padding: 3px 8px;
+        padding: 4px 10px;
         border-radius: 6px;
-        font-weight: 600;
-        font-size: 0.78rem;
+        font-weight: 700;
+        font-size: 0.8rem;
     }
-    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
-    .tag-cyan { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
-    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-purple { background: rgba(168, 85, 247, 0.25); color: #f3e8ff; border: 1px solid rgba(168, 85, 247, 0.5); }
+    .tag-cyan { background: rgba(56, 189, 248, 0.25); color: #e0f2fe; border: 1px solid rgba(56, 189, 248, 0.5); }
+    .tag-emerald { background: rgba(16, 185, 129, 0.25); color: #d1fae5; border: 1px solid rgba(16, 185, 129, 0.5); }
+
+    /* Expanders & Dataframe */
+    [data-testid="stExpander"] {
+        background-color: #0c111d !important;
+        border: 1px solid rgba(71, 85, 105, 0.5) !important;
+        border-radius: 10px !important;
+    }
+    [data-testid="stExpander"] summary {
+        color: #f8fafc !important;
+        font-weight: 600 !important;
+    }
 
     /* Custom Code Styling */
     code, pre {
         font-family: 'JetBrains Mono', monospace !important;
+        background-color: #080d19 !important;
+        color: #38bdf8 !important;
+    }
+
+    /* Chat input field */
+    [data-testid="stChatInput"] {
+        background-color: #0f172a !important;
+        border: 1px solid rgba(71, 85, 105, 0.7) !important;
+        border-radius: 12px !important;
+    }
+    [data-testid="stChatInput"] textarea {
+        color: #ffffff !important;
     }
 </style>
 """, unsafe_allow_html=True)
