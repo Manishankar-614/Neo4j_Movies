@@ -1,54 +1,33 @@
 # 🎬 NeoCinema GraphRAG Intelligence
 
-A next-generation **Retrieval-Augmented Generation (GraphRAG)** system built with **Streamlit** and **Neo4j**, enabling natural-language question answering grounded on the official Neo4j Movies Knowledge Graph (`:play movies`).
+A next-generation **Graph Retrieval-Augmented Generation (GraphRAG)** system built with **Streamlit**, **Google Gemini**, and the official **Neo4j Movies Dataset** (`:play movies`).
 
-The system translates natural language queries into Cypher graph queries, executes graph traversals to retrieve subgraphs (nodes, relationships, and properties), and uses an LLM to synthesize natural-language answers with interactive force-directed graph visualizer.
-
----
-
-## 🔑 Which API Do You Need? (100% Free Options)
-
-You have **two completely free, zero-cost API options** with **no credit card required**:
-
-### 🥇 Option 1: Google Gemini API (Recommended)
-- **Cost:** 100% Free
-- **Model:** `gemini-2.5-flash`
-- **How to get it in 30 seconds:**
-  1. Go to [Google AI Studio (aistudio.google.com/app/apikey)](https://aistudio.google.com/app/apikey).
-  2. Sign in with any regular Google/Gmail account.
-  3. Click **"Create API key"**.
-  4. Paste your key in `.env` (`GEMINI_API_KEY=...`) or directly in the Streamlit sidebar!
-
-### ⚡ Option 2: Groq Cloud API (Ultra-Fast)
-- **Cost:** 100% Free developer tier
-- **Model:** `llama-3.3-70b-versatile`
-- **How to get it:**
-  1. Go to [Groq Console (console.groq.com/keys)](https://console.groq.com/keys).
-  2. Sign in with GitHub or Google.
-  3. Click **"Create API Key"** and paste it into the app!
-
-### 💡 Option 3: Built-in Smart Semantic Synthesizer (Zero Setup / Offline)
-- Requires **no API keys, no internet, and zero configuration**.
-- The system includes a built-in neural-heuristic Cypher generator and semantic template synthesizer that can answer complex queries locally!
+The system translates natural-language movie questions into **Cypher graph queries**, traverses the connected knowledge graph (actors, directors, movies, roles, release dates), and synthesizes rich factual answers grounded strictly in graph knowledge.
 
 ---
 
-## 🎨 Creative & Unique Interface Features
+## 📸 Interface Previews (Cyber-Cinema Dark Theme)
 
-1. **Cyber-Cinema Neo-Noir Aesthetic**:
-   - Modern dark theme with Google Fonts (`Outfit` + `Plus Jakarta Sans` + `JetBrains Mono`).
-   - Frosted glass cards (`backdrop-filter: blur(12px)`), radiant cyan & purple glows, and ambient gradients.
-2. **Multi-Tab Workspace**:
-   - **💬 NeoCinema Chat**: Conversational interface with categorized prompt inspiration pills, execution trace tags, generated Cypher code boxes, and embedded force-directed subgraphs.
-   - **🕸️ Interactive Graph Explorer**: Full-screen interactive graph canvas of the entire movie dataset with live search filtering and dynamic physics controls.
-   - **💻 Cypher Query Studio**: Interactive Cypher playground with pre-loaded query templates (shortest paths, co-actors, top ratings) and live visual execution.
-   - **🔑 Free API Setup Guide**: In-app guide and connectivity tester for Gemini, Groq, and Neo4j AuraDB.
-3. **Execution Trace Tags**:
-   - Every answer displays a live telemetry bar showing:
-     - 🧠 Synthesizer Model used
-     - ⚡ Cypher Generation Model used
-     - ⏱️ Latency in milliseconds
-     - 📊 Count of retrieved graph records
+| 1. Main Deck & Inspiration Queries | 2. Synthesized Answer & Telemetry |
+| :---: | :---: |
+| ![Main Input Screen](screenshots/fig_7_3_1_input_screen.png) | ![Answer Result](screenshots/fig_7_3_2_answer_result.png) |
+
+| 3. Generated Cypher & Graph Records | 4. Interactive Force-Directed Subgraph |
+| :---: | :---: |
+| ![Cypher Query & Table](screenshots/fig_7_3_3_cypher_records.png) | ![Graph Visualizer](screenshots/fig_7_3_4_subgraph_visualizer.png) |
+
+---
+
+## ✨ Features
+
+- **⚡ Graph-Grounded RAG**: Automatically turns user queries into Cypher graph queries and fetches multi-hop relationships.
+- **🧠 Google Gemini Integration**: Uses `gemini-3.8-flash` via `.env` configuration for Cypher translation and natural-language synthesis.
+- **🔌 Dual-Engine Architecture**:
+  - **Built-in In-Memory Knowledge Graph**: Instant zero-setup offline operation preloaded with 22 movies, 92 people, and 150 relationships.
+  - **Live Neo4j Instance**: Seamless connection to Neo4j Desktop, Docker, or Neo4j AuraDB via Bolt protocol.
+- **🕸️ Interactive Subgraph Visualization**: Dynamic physics-driven Vis.js force-directed network graph rendered directly inside the chat.
+- **📊 Live Execution Telemetry**: Transparent execution tags showing latency (ms), retrieved records count, and models used.
+- **🎨 Pure Cyber-Cinema Dark Theme**: Polished dark aesthetic with glowing accents and clear contrast.
 
 ---
 
@@ -61,7 +40,7 @@ flowchart TD
     
     subgraph "1. Text-to-Cypher Translation"
         RAG --> Schema[Neo4j Movies Schema]
-        RAG --> LLM_Cypher[LLM / Text-to-Cypher\nGemini 2.5 Flash / Groq / Offline]
+        RAG --> LLM_Cypher[Google Gemini 3.8 Flash]
         LLM_Cypher --> CypherQuery[Generated Cypher Query]
     end
 
@@ -74,7 +53,7 @@ flowchart TD
     end
 
     subgraph "3. Augmented Generation & Visualization"
-        Subgraph --> LLM_Synth[LLM Answer Synthesizer\nGemini / Groq / Offline]
+        Subgraph --> LLM_Synth[LLM Answer Synthesizer\nGemini 3.8 Flash]
         Subgraph --> Vis[🕸️ Vis.js Force-Directed Graph Visualizer]
         LLM_Synth --> NaturalAnswer[📝 Natural Language Answer]
     end
@@ -89,38 +68,52 @@ flowchart TD
 ## 📂 Project Structure
 
 ```
-c:/ANLP/Project3/
-├── app.py                 # Streamlit application with multi-tab workspace
-├── config.py              # Configuration loader for Gemini, Groq, Neo4j
-├── graph_db.py            # Neo4j driver connection and local graph engine
-├── movies_data.py         # Official Neo4j Movies dataset (:play movies)
-├── rag_engine.py          # GraphRAG pipeline with execution trace
-├── graph_visualizer.py    # Force-directed Vis.js graph component
-├── test_rag.py            # Unit test suite verifying the RAG pipeline
-├── requirements.txt       # Project Python dependencies
-├── .env.example           # Example environment file with free API instructions
-└── README.md              # Project documentation
+.
+├── .env.example              # Template for environment configuration
+├── .gitignore                # Git ignore rules (ignoring .env and logs)
+├── .streamlit/
+│   └── config.toml           # Streamlit dark theme settings
+├── README.md                 # Project documentation and visual tour
+├── app.py                    # Streamlit web application & UI
+├── config.py                 # Configuration loader
+├── graph_db.py               # Neo4j driver and built-in graph engine
+├── graph_visualizer.py       # Vis.js network graph builder
+├── movies_data.py            # Official Neo4j Movies dataset
+├── rag_engine.py             # GraphRAG pipeline & execution trace
+├── requirements.txt          # Python dependencies
+└── screenshots/              # High-contrast application screenshots
+    ├── fig_7_3_1_input_screen.png
+    ├── fig_7_3_2_answer_result.png
+    ├── fig_7_3_3_cypher_records.png
+    └── fig_7_3_4_subgraph_visualizer.png
 ```
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### 1. Clone & Install Dependencies
 ```bash
+git clone https://github.com/Manishankar-614/Neo4j_Movies.git
+cd Neo4j_Movies
 pip install -r requirements.txt
 ```
 
-### 2. Run the Application
+### 2. Configure Environment Variables
+Copy `.env.example` to `.env` and add your Gemini API key:
+```bash
+cp .env.example .env
+```
+In `.env`:
+```env
+GEMINI_API_KEY=your_actual_gemini_api_key_here
+```
+
+### 3. Run the Application
 ```bash
 streamlit run app.py
 ```
 Open your browser at `http://localhost:8501`.
-
-### 3. Run Pipeline Tests
-```bash
-python test_rag.py
-```
 
 ---
 
