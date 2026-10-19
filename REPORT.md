@@ -156,6 +156,24 @@ Streamlit was chosen because the entire application runs natively in Python with
 - **Cypher Query Studio**: Real-time Cypher code runner with pre-built query templates and instant tabular/visual outputs.
 - **Execution Telemetry**: Trace tags displaying active LLM model, Cypher generator type, and latency in milliseconds.
 
+### 7.3 Screenshots
+
+#### Figure 7.3.1. The Application's Input Screen
+![Figure 7.3.1 - Application Input Screen](screenshots/fig_7_3_1_input_screen.png)
+*Figure 7.3.1: Sidebar configuration (Google Gemini 3.8 Flash loaded from .env), graph statistics (171 nodes, 253 relationships), hero header, and categorized query inspiration tabs.*
+
+#### Figure 7.3.2. Result for “Tell me about The Matrix”
+![Figure 7.3.2 - Answer Result](screenshots/fig_7_3_2_answer_result.png)
+*Figure 7.3.2: Generated conversational response synthesized by Gemini 3.8 Flash, live execution trace tag (latency, model, records count), release year, tagline, directors, and full cast breakdown.*
+
+#### Figure 7.3.3. Generated Cypher Query & Knowledge Graph Records Table
+![Figure 7.3.3 - Cypher Records](screenshots/fig_7_3_3_cypher_records.png)
+*Figure 7.3.3: Generated Cypher query inspection and raw knowledge graph records returned by the graph engine.*
+
+#### Figure 7.3.4. Interactive Force-Directed Subgraph
+![Figure 7.3.4 - Force Directed Subgraph](screenshots/fig_7_3_4_subgraph_visualizer.png)
+*Figure 7.3.4: Embedded Vis.js interactive physics canvas rendering the movie node (Coral) connected to its actors (Blue) and directors with directional relationship edges.*
+
 ---
 
 ## Sample Input & Output
